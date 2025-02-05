@@ -13,4 +13,5 @@ export interface Video {
   url: string
   likes?: number
   comments?: number
+  author: string
 }

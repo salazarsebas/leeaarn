@@ -25,39 +25,37 @@ export function VideoPlayer({ video, slideDirection }: VideoPlayerProps) {
       animate={slideDirection === "up" ? "centerUp" : "centerDown"}
       exit={slideDirection === "up" ? "exitUp" : "exitDown"}
       transition={{ duration: 0.5 }}
-      className="relative"
+      className="relative flex items-center justify-center w-full h-full"
     >
-      {video.url.includes('youtube.com') ? (
-        <iframe
-          src={video.url}
-          title={video.title}
-          className="max-h-[80vh] w-[80vw] h-[80vh] rounded-lg shadow-lg"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
+      <div className="relative w-[calc(100vh*9/16)] max-w-[500px] h-[80vh] bg-black rounded-lg overflow-hidden">
+        {video.url.endsWith('.mp4') && (
+          <video
+            src={video.url}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+            onClick={(e) => {
+              const video = e.currentTarget;
+              if (video.paused) {
+                video.play();
+              } else {
+                video.pause();
+              }
+            }}
+          />
+        )}
+        <VideoInteractions
+          videoId={video.id}
+          initialLikes={video.likes}
+          initialComments={video.comments}
         />
-      ) : video.url.endsWith('.mp4') ? (
-        <video
-          src={video.url}
-          title={video.title}
-          controls
-          autoPlay
-          className="max-h-[80vh] w-[80vw] h-[80vh] rounded-lg shadow-lg object-contain bg-black"
-        />
-      ) : (
-        <img
-          src={video.url || "/placeholder.svg"}
-          alt={video.title}
-          className="max-h-[80vh] rounded-lg shadow-lg"
-        />
-      )}
-      <VideoInteractions
-        videoId={video.id}
-        initialLikes={video.likes}
-        initialComments={video.comments}
-      />
-      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
-        <h2 className="text-xl font-bold">{video.title}</h2>
-        <p className="text-sm opacity-75">{video.subject}</p>
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
+          <p className="text-sm font-medium mb-1">@{video.author}</p>
+          <h2 className="text-xl font-bold">{video.title}</h2>
+          <p className="text-sm opacity-75">{video.subject}</p>
+        </div>
       </div>
     </motion.div>
   )

@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { AnimatePresence } from "framer-motion"
 import { BookOpen, Code, FlaskRoundIcon as Flask, Globe, Music, Palette } from "lucide-react"
+import { Tooltip } from "@/components/ui/tooltip"
 
 import { Header } from "@/app/components/layout/Header"
 import { Sidebar } from "@/app/components/layout/Sidebar"
@@ -26,7 +27,8 @@ const videos: Video[] = [
     title: "Shakespeare in 60 Seconds",
     url: "/learn_france.mp4",
     likes: 124,
-    comments: 15
+    comments: 15,
+    author: "french_teacher"
   },
   {
     id: 2,
@@ -34,7 +36,8 @@ const videos: Video[] = [
     title: "Quick React Hooks Tutorial",
     url: "/learn_corean.mp4",
     likes: 89,
-    comments: 8
+    comments: 8,
+    author: "korean_master"
   },
   {
     id: 3,
@@ -42,7 +45,8 @@ const videos: Video[] = [
     title: "The Big Bang Theory Explained",
     url: "/learn_spanish.mp4",
     likes: 256,
-    comments: 42
+    comments: 42,
+    author: "spanish_tutor"
   }
 ]
 
