@@ -11,4 +11,6 @@ export interface Video {
   subject: string
   title: string
   url: string
+  likes?: number
+  comments?: number
 }

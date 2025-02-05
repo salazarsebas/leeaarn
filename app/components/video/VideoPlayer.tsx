@@ -1,5 +1,6 @@
 import { motion } from "framer-motion"
 import { Video } from "@/app/types"
+import { VideoInteractions } from "./VideoInteractions"
 
 interface VideoPlayerProps {
   video: Video
@@ -34,6 +35,14 @@ export function VideoPlayer({ video, slideDirection }: VideoPlayerProps) {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
+      ) : video.url.endsWith('.mp4') ? (
+        <video
+          src={video.url}
+          title={video.title}
+          controls
+          autoPlay
+          className="max-h-[80vh] w-[80vw] h-[80vh] rounded-lg shadow-lg object-contain bg-black"
+        />
       ) : (
         <img
           src={video.url || "/placeholder.svg"}
@@ -41,6 +50,11 @@ export function VideoPlayer({ video, slideDirection }: VideoPlayerProps) {
           className="max-h-[80vh] rounded-lg shadow-lg"
         />
       )}
+      <VideoInteractions
+        videoId={video.id}
+        initialLikes={video.likes}
+        initialComments={video.comments}
+      />
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
         <h2 className="text-xl font-bold">{video.title}</h2>
         <p className="text-sm opacity-75">{video.subject}</p>

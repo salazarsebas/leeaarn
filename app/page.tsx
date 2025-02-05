@@ -19,13 +19,31 @@ const subjects: Subject[] = [
   { name: "Art", icon: Palette, color: "bg-pink-500" },
 ]
 
-const sebasVideoUrl = "https://www.youtube.com/embed/NWdEOAYm4FA?si=2no_Ga-7zJZ_S4CW&autoplay=1"
-
 const videos: Video[] = [
-  { id: 1, subject: "Literature", title: "Shakespeare in 60 Seconds", url: "/placeholder.svg?height=720&width=405" },
-  { id: 2, subject: "Programming", title: "Quick React Hooks Tutorial", url: "/placeholder.svg?height=720&width=405" },
-  { id: 3, subject: "Science", title: "The Big Bang Theory Explained", url: "/placeholder.svg?height=720&width=405" },
-  { id: 4, subject: "Programming", title: "Login for Sebas", url: sebasVideoUrl }
+  {
+    id: 1,
+    subject: "Literature",
+    title: "Shakespeare in 60 Seconds",
+    url: "/learn_france.mp4",
+    likes: 124,
+    comments: 15
+  },
+  {
+    id: 2,
+    subject: "Programming",
+    title: "Quick React Hooks Tutorial",
+    url: "/learn_corean.mp4",
+    likes: 89,
+    comments: 8
+  },
+  {
+    id: 3,
+    subject: "Science",
+    title: "The Big Bang Theory Explained",
+    url: "/learn_spanish.mp4",
+    likes: 256,
+    comments: 42
+  }
 ]
 
 export default function Home() {
