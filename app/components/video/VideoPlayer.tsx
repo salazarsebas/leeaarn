@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { Video } from "@/app/types"
 import { VideoInteractions } from "./VideoInteractions"
+import { useEffect, useRef } from "react"
 
 interface VideoPlayerProps {
   video: Video
@@ -8,6 +9,8 @@ interface VideoPlayerProps {
 }
 
 export function VideoPlayer({ video, slideDirection }: VideoPlayerProps) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
   const slideVariants = {
     enterUp: { y: "100%", opacity: 0 },
     centerUp: { y: 0, opacity: 1 },
@@ -15,6 +18,25 @@ export function VideoPlayer({ video, slideDirection }: VideoPlayerProps) {
     enterDown: { y: "-100%", opacity: 0 },
     centerDown: { y: 0, opacity: 1 },
     exitDown: { y: "100%", opacity: 0 },
+  }
+
+  useEffect(() => {
+    // Start playing when the video is loaded
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => {
+        console.log("Autoplay prevented:", error)
+      })
+    }
+  }, [video.url])
+
+  const handleVideoClick = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play()
+      } else {
+        videoRef.current.pause()
+      }
+    }
   }
 
   return (
@@ -30,20 +52,13 @@ export function VideoPlayer({ video, slideDirection }: VideoPlayerProps) {
       <div className="relative w-[calc(100vh*9/16)] max-w-[500px] h-[80vh] bg-black rounded-lg overflow-hidden">
         {video.url.endsWith('.mp4') && (
           <video
+            ref={videoRef}
             src={video.url}
             autoPlay
             loop
-            muted
             playsInline
             className="w-full h-full object-cover"
-            onClick={(e) => {
-              const video = e.currentTarget;
-              if (video.paused) {
-                video.play();
-              } else {
-                video.pause();
-              }
-            }}
+            onClick={handleVideoClick}
           />
         )}
         <VideoInteractions
